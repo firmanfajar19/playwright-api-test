@@ -12,15 +12,15 @@ And the product id that we updated from test 03 will be run just to make sure th
 
 test('Delete Product - From File Test 03', async ({ request }) => {
     const { id: productId } = readProductUpdated();
-    const response = await request.delete(`products/${productId}`); // get the product id from product_updated.json
+    const response = await request.delete(`/products/${productId}`); // get the product id from product_updated.json
     const responseBody = await response.json();
     expect(response.status()).toBe(200);
-    console.log('Response Body:', responseBody);
+    expect(responseBody.isDeleted).toBe(true)
 });
 
 test('Verify Deleted Product', async ({ request }) => {
     const productId = readProductId();
-    const response = await request.get(`products/${productId}`); // get the product id from product.json
+    const response = await request.get(`/products/${productId}`); // get the product id from product.json
     const responseBody = await response.json();
     expect(response.status()).toBe(404); // I use the product from Test 02 since the product product will not add it into the server
     console.log('Response Body:', responseBody);

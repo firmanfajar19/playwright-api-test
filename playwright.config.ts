@@ -9,16 +9,9 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: 1,
   reporter: 'line',
-  
-  use: {
-    baseURL: 'https://dummyjson.com/',
-    trace: 'on-first-retry',
-    
-    // Optional: Set extra HTTP headers if needed
-    // extraHTTPHeaders: {
-    //   'Authorization': `Bearer ${process.env.AUTH_TOKEN}`,
-    // },
-  },
-
   globalSetup: require.resolve('./global.setup.ts'),
+  use: {
+    baseURL: process.env.BASE_URL,
+    trace: 'on-first-retry',
+  },
 });

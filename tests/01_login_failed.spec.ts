@@ -1,19 +1,17 @@
 import { test, expect } from '@playwright/test';
 
 test('Login Failed', async ({ request }) => {
-    const response = await request.post(`auth/login`, {
+    const response = await request.post(`/auth/login`, {
         headers: {
             'Content-Type': 'application/json',
         },
         data: {
-            username: 'invalid',
-            password: 'invalid',
-            expiresInMins: 30,
+            username: process.env.INVALID_USERNAME,
+            password: process.env.INVALID_PASSWORD,
         },
     });
 
-    expect(response.status()).toBe(400);
-
     const responseBody = await response.json();
-    console.log('Response Body:', responseBody);
+    expect(response.status()).toBe(400);
+    expect(responseBody.message).toBe('Invalid credentials');
 });

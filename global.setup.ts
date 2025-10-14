@@ -1,16 +1,14 @@
 import { expect, request } from '@playwright/test';
 
 async function globalSetup() {
-    const baseURL = process.env.BASE_URL || 'https://dummyjson.com';
     const context = await request.newContext();
-    const response = await context.post(`${baseURL}/auth/login`, {
+    const response = await context.post(`${process.env.BASE_URL}/auth/login`, {
         headers: {
             'Content-Type': 'application/json',
         },
         data: {
-            username: 'emilys',
-            password: 'emilyspass',
-            expiresInMins: 30,
+            username: process.env.VALID_USERNAME,
+            password: process.env.VALID_PASSWORD,
         },
         
     });

@@ -1,23 +1,22 @@
 import { test, expect } from '@playwright/test';
 import { saveProductId } from '../utils/sharedData';
 
-test('Create Product', async ({ request }, testInfo) => {
-    const response = await request.post(`products/add`, {
+test('Create Product', async ({ request }) => {
+    const response = await request.post(`/products/add`, {
         headers: {
             'Content-Type': 'application/json',
         },
         data: {
-            title: `${process.env.Title}`,
-            description: `${process.env.Description}`,
-            price: Number(`${process.env.PriceUpdated}`).toString(),
+            title: process.env.TITLE_PRODUCT,
+            description: process.env.DESCRIPTION_PRODUCT,
+            price: Number(process.env.PRICE_UPDATE),
         },
 
     });
 
     const responseBody = await response.json();
-
     expect(response.status()).toBe(201);
-    expect(responseBody.title).toBe(`${process.env.Title}`);
+    expect(responseBody.title).toBe(process.env.TITLE_PRODUCT);
 
     saveProductId(responseBody.id);
 });

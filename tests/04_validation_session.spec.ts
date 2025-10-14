@@ -15,11 +15,11 @@ test('Final Validation Session', async ({ request }) => {
     console.log('Product ID:', `${productId}`); // retrieve id from product_updated.json
     console.log('Product Price:', `${productPrice}`); // retrieve price from product_updated.json
 
-    const response = await request.get(`products/${productId}`); // retrieve id from product_updated.json
+    const response = await request.get(`/products/${productId}`); // retrieve id from product_updated.json
 });
 
 test('Session Failure', async ({ request }) => {
-    const response = await request.get('auth/me', {
+    const response = await request.get('/auth/me', {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -30,4 +30,15 @@ test('Session Failure', async ({ request }) => {
     const responseBody = await response.json();
     console.log('Response Body:', responseBody);
 
+});
+
+test('Session Success', async ({ request }) => {
+    const response = await request.get('/auth/me', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.AUTH_TOKEN}`
+        },
+    });
+    
+    expect(response.status()).toBe(200)
 });
