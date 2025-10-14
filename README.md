@@ -16,3 +16,5 @@ To run the test, it can be done by running the following command:
 ```
 npx playwright test
 ```
+
+I use dotenv for config file and I not yet add it to gitignore since the CI/CD is not yet setup.
