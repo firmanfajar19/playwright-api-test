@@ -1,10 +1,18 @@
 import fs from 'fs';
 import path from 'path';
 
-const sharedPath = path.resolve(__dirname, '../test-data/product.json');
-const sharedPathUpdated = path.resolve(__dirname, '../test-data/product_updated.json');
+const testDataDir = path.resolve(__dirname, '../test-data');
+const sharedPath = path.resolve(testDataDir, 'product.json');
+const sharedPathUpdated = path.resolve(testDataDir, 'product_updated.json');
+
+function verifyTestDataDir() {
+    if (!fs.existsSync(testDataDir)) {
+        fs.mkdirSync(testDataDir, { recursive: true });
+    }
+}
 
 export function saveProductId(id: number) {
+    verifyTestDataDir();
     fs.writeFileSync(sharedPath, JSON.stringify({ id }));
 }
 
@@ -14,6 +22,7 @@ export function readProductId(): number {
 }
 
 export function saveProductUpdated(id: number, price: number) {
+    verifyTestDataDir();
     fs.writeFileSync(sharedPathUpdated, JSON.stringify({ id, price }));
 }
 

@@ -8,7 +8,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: 1,
-  reporter: 'line',
+  reporter: 'html',
   globalSetup: require.resolve('./global.setup.ts'),
   use: {
     baseURL: process.env.BASE_URL,
